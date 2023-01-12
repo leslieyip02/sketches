@@ -27,5 +27,5 @@ public abstract class SortingAlgorithm {
     }
 
     public abstract <T extends Comparable<T>> void sort(T[] values);
-    public abstract <T extends Comparable<T>> ArrayList<T[]> states(T[] values);
+    public abstract <T extends Comparable<T>> ArrayList<State<T>> states(T[] values);
 }

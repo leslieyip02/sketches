@@ -10,16 +10,21 @@ public class BubbleSort extends SortingAlgorithm {
         this.printValues(values);
     }
 
-    public <T extends Comparable<T>> ArrayList<T[]> states(T[] values) {
-        ArrayList<T[]> states = new ArrayList<T[]>();
+    public <T extends Comparable<T>> ArrayList<State<T>> states(T[] values) {
+        ArrayList<State<T>> states = new ArrayList<State<T>>();
 
-        states.add(values.clone());
         for (int i = 0; i < values.length - 1; i++) {
             for (int j = 0; j < values.length - i - 1; j++) {
+                State<T> state;
+
                 if (this.compare(values, j, j + 1) == 1) {
                     this.swap(values, j, j + 1);
-                    states.add(values.clone());
+                    state = new State<T>(values.clone(), j, j + 1);
+                } else {
+                    state = new State<T>(values.clone(), j);
                 }
+
+                states.add(state);
             }
         }
 

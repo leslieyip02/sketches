@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.ArrayList;
 
 public class Main {
@@ -14,9 +13,9 @@ public class Main {
         }
 
         SortingAlgorithm sorter = new BubbleSort();
-        ArrayList<Integer[]> states = sorter.states(values);
+        ArrayList<State<Integer>> states = sorter.states(values);
 
-        for (Integer[] state : states)
-            System.out.println(Arrays.toString(state));
+        for (State<Integer> state : states)
+            System.out.println(state.toString());
     }
 }
