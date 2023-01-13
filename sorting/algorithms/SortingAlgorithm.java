@@ -36,7 +36,7 @@ public abstract class SortingAlgorithm {
         if (csvFile.exists())
             csvFile.delete();
 
-        csvFile = new File("../data.csv");
+        csvFile = new File("./data.csv");
         csvFile.createNewFile();
 
         ArrayList<State<T>> states = this.states(values);
@@ -50,7 +50,6 @@ public abstract class SortingAlgorithm {
                 row = String.format("%s,%d,%d", row, 
                     state.index, state.swappedWith);
 
-                System.out.println(row);
                 csvWriter.println(row);
             }
         }
