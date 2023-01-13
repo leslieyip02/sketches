@@ -1,9 +1,10 @@
-import java.util.ArrayList;
+package algorithms;
+import java.io.*;
 
-public class Main {
+public class Sort {
     private static Integer[] defaultValues = { 5, 2, 7, 4, 8, 1, 3, 6 };
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Integer[] values = defaultValues;
 
         if (args.length > 0) {
@@ -13,9 +14,6 @@ public class Main {
         }
 
         SortingAlgorithm sorter = new BubbleSort();
-        ArrayList<State<Integer>> states = sorter.states(values);
-
-        for (State<Integer> state : states)
-            System.out.println(state.toString());
+        sorter.writeToCsv(values);
     }
 }

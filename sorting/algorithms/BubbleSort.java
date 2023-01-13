@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+package algorithms;
+import java.util.*;
 
 public class BubbleSort extends SortingAlgorithm {
     public <T extends Comparable<T>> void sort(T[] values) {
@@ -25,6 +26,8 @@ public class BubbleSort extends SortingAlgorithm {
                 }
 
                 states.add(state);
+                if (this.isSorted(values))
+                    return states;
             }
         }
 

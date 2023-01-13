@@ -1,4 +1,5 @@
-import java.util.Arrays;
+package algorithms;
+import java.util.*;
 
 public class State<T> {
     public T[] values;
