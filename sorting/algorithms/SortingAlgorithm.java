@@ -31,12 +31,13 @@ public abstract class SortingAlgorithm {
     public abstract <T extends Comparable<T>> void sort(T[] values);
     public abstract <T extends Comparable<T>> ArrayList<State<T>> states(T[] values);
 
+    // store in a csv so that the processing sketch can access the values
     public <T extends Comparable<T>> void writeToCsv(T[] values) throws IOException {
         File csvFile = new File("../data.csv");
         if (csvFile.exists())
             csvFile.delete();
 
-        csvFile = new File("./data.csv");
+        csvFile = new File("./stateData.csv");
         csvFile.createNewFile();
 
         ArrayList<State<T>> states = this.states(values);
