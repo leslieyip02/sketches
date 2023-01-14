@@ -24,16 +24,16 @@ public abstract class SortingAlgorithm {
         return true;
     }
 
+    public abstract <T extends Comparable<T>> void sort(T[] values);
+    public abstract <T extends Comparable<T>> ArrayList<State<T>> states(T[] values);
+    
     public <T> void printValues(T[] values) {
         System.out.println(Arrays.toString(values));
     }
 
-    public abstract <T extends Comparable<T>> void sort(T[] values);
-    public abstract <T extends Comparable<T>> ArrayList<State<T>> states(T[] values);
-
     // store in a csv so that the processing sketch can access the values
     public <T extends Comparable<T>> void writeToCsv(T[] values) throws IOException {
-        File csvFile = new File("../data.csv");
+        File csvFile = new File("./stateData.csv");
         if (csvFile.exists())
             csvFile.delete();
 
@@ -43,16 +43,19 @@ public abstract class SortingAlgorithm {
         ArrayList<State<T>> states = this.states(values);
         try (PrintWriter csvWriter = new PrintWriter(csvFile)) {
             for (State<T> state : states) {
-                System.out.println(state.toString());
                 String row = Arrays.stream(state.values)
                     .map((i) -> i.toString())
                     .collect(Collectors.joining(","));
 
+                // the index for swapped values is stored in the last 2 columns
                 row = String.format("%s,%d,%d", row, 
                     state.index, state.swappedWith);
 
                 csvWriter.println(row);
             }
         }
+
+        System.out.print("Sorted: ");
+        this.printValues(states.get(states.size() - 1).values);
     }
 }

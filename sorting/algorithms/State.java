@@ -4,6 +4,8 @@ import java.util.*;
 public class State<T> {
     public T[] values;
     public int index;
+
+    // default value of -1 means no swap occurred
     public int swappedWith = -1;
 
     public State(T[] values, int index) {
