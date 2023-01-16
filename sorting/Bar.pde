@@ -25,8 +25,10 @@ class Bar {
     void drawArrowTo(Bar other) {
         float x0 = (this.x + other.x + other.w) / 2;
         float y0 = this.y + 32;
-        float d = other.x - this.x;
-        arc(x0, y0, d, d, 0, PI);
+        float d = abs(other.x - this.x);
+        float r = min(480, d);
+        fill(#ffffff);
+        arc(x0, y0, d, r, 0, PI);
 
         float x1 = other.x + other.w / 2;
         float y1 = y0;
@@ -34,7 +36,7 @@ class Bar {
         float y2 = y0 + 12;
         float x3 = x1 - 12;
         float y3 = y0 + 12;
-        fill(0, 0, 0);
+        fill(#000000);
         triangle(x1, y1, x2, y2, x3, y3);
     }
 
