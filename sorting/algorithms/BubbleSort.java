@@ -5,6 +5,7 @@ public class BubbleSort extends SortingAlgorithm {
     public <T extends Comparable<T>> void sort(T[] values) {
         // keep swapping and "bubbling" large values to the end
         for (int i = 0; i < values.length - 1; i++)
+            // each subsequent loop ends earlier because the larger values are at the back
             for (int j = 0; j < values.length - i - 1; j++)
                 if (this.compare(values, j, j + 1) == 1)
                     this.swap(values, j, j + 1);
