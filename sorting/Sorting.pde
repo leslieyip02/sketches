@@ -26,6 +26,17 @@ int sortedFill = #00ff00;
 void setup() {
     fullScreen();
 
+    if (args != null) {
+        String flag = trim(args[0]);
+
+        // if delay is 0, then need to save as gif
+        if (flag.equals("-s")) {
+            delay = 0;
+        } else if (flag.equals("-d")) {
+            delay = int(args[1]);
+        }
+    }
+
     stateData = loadTable(path, "csv");
     System.out.println(String.format("Loaded table with %d rows and %d columns.", 
         stateData.getRowCount(), stateData.getColumnCount()));
@@ -53,6 +64,11 @@ void setup() {
     stateIndex = 0;
     needToSwap = false;
     sorted = false;
+}
+
+void keyPressed() {
+    if (key == ENTER)
+        exit();
 }
 
 void update() {
@@ -90,6 +106,10 @@ void draw() {
         
         for (Bar bar : bars)
             bar.drawBar();
+
+        if (delay == 0)
+            saveFrame();
+
     } else if (!sorted) {
         // final state of the sketch is the sorted bar graph
         background(#FFFFFF);
@@ -101,5 +121,10 @@ void draw() {
         }
 
         sorted = true;
+
+        if (delay == 0) {
+            saveFrame();
+            exit();
+        }
     }
 }
