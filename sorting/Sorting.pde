@@ -58,7 +58,8 @@ void setup() {
     for (int i = 0; i < numBars; i++) {
         int value = stateData.getInt(0, i);
         float height = value * heightRatio;
-        bars[i] = new Bar(value, x0 + i * barWidth, y0, barWidth, height);
+        bars[i] = new Bar(value, maxValue, 
+            x0 + i * barWidth, y0, barWidth, height, maxBarHeight);
     }
 
     stateIndex = 0;

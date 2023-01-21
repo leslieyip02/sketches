@@ -1,25 +1,33 @@
 class Bar {
     int value;
+    int maxValue;
     
     float x;
     float y;
     float w;
     float h;
+    
+    int maxBarHeight;
 
     int fill = #ffffff;
 
-    Bar(int value, float x, float y, float w, float h) {
+    Bar(int value, int maxValue, float x, float y, 
+        float w, float h, int maxBarHeight) {
+
         this.value = value;
+        this.maxValue = maxValue;
+
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
+
+        this.maxBarHeight = maxBarHeight;
     }
 
     void setValue(int value) {
-        // height ratio to max height is preserved on change
-        this.h = value * this.h / this.value;
         this.value = value;
+        this.h = (float) this.value / this.maxValue * this.maxBarHeight;
     }
 
     void drawArrowTo(Bar other) {
