@@ -13,7 +13,7 @@ public class Sort {
                 values[i] = Integer.parseInt(args[i]);
         }
 
-        SortingAlgorithm sorter = new InsertionSort();
+        SortingAlgorithm sorter = new QuickSort();
         sorter.writeToCsv(values);
     }
 }
