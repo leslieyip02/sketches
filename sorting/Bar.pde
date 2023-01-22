@@ -59,4 +59,9 @@ class Bar {
         fill(this.fill);
         rect(this.x, this.y - this.h, this.w, this.h);
     }
+
+    void drawBar(int fill) {
+        this.fill = fill;
+        this.drawBar();
+    }
 }

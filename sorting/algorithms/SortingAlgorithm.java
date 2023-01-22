@@ -1,7 +1,6 @@
 package algorithms;
 import java.io.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 // all sorting algorithms will take an array of integers,
 // and sort them in ascending order by default
@@ -42,17 +41,8 @@ public abstract class SortingAlgorithm {
 
         ArrayList<State<T>> states = this.states(values);
         try (PrintWriter csvWriter = new PrintWriter(csvFile)) {
-            for (State<T> state : states) {
-                String row = Arrays.stream(state.values)
-                    .map((i) -> i.toString())
-                    .collect(Collectors.joining(","));
-
-                // the index for swapped values is stored in the last 2 columns
-                row = String.format("%s,%d,%d", row, 
-                    state.index, state.swappedWith);
-
-                csvWriter.println(row);
-            }
+            for (State<T> state : states)
+                csvWriter.println(state.toCSVRow());
         }
 
         System.out.print("Sorted: ");

@@ -1,5 +1,6 @@
 package algorithms;
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class QuickSort extends SortingAlgorithm {
     private <T extends Comparable<T>> int partition(T[] values, 
@@ -7,8 +8,12 @@ public class QuickSort extends SortingAlgorithm {
         
         // pivot on rightmost element
         int pivotIndex = high;
+
+        int[] selected = IntStream.rangeClosed(low, pivotIndex)
+            .toArray();
+
         if (states != null)
-            states.add(new State<T>(values.clone(), pivotIndex));
+            states.add(new State<T>(values.clone(), selected));
             
         // loop from left to find elements larger than the pivot
         int nextIndex = low;

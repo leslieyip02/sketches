@@ -20,6 +20,7 @@ int delay = 500;
 
 int defaultFill = #ffffff;
 int selectedFill = #ff0000;
+int multipleSelectedFill = #ffff00;
 int swappedWithFill = #9a0000;
 int sortedFill = #00ff00;
 
@@ -29,7 +30,6 @@ void setup() {
     if (args != null) {
         String flag = trim(args[0]);
 
-        // if delay is 0, then need to save as gif
         if (flag.equals("-s")) {
             delay = 0;
         } else if (flag.equals("-d")) {
@@ -76,26 +76,38 @@ void update() {
     for (Bar bar : bars)
         bar.fill = defaultFill;
 
-    int index = stateData.getInt(stateIndex, numBars);
-    int swappedWith = stateData.getInt(stateIndex, numBars + 1);
-    bars[index].fill = selectedFill;
+    String[] indexEntries = split(stateData.getString(stateIndex, numBars), ",");
     
-    if (needToSwap) {
-        bars[index].drawArrowTo(bars[swappedWith]);
-        bars[index].fill = swappedWithFill;
-        bars[swappedWith].fill = selectedFill;
-        needToSwap = false;
-    } else if (swappedWith != -1) {
-        // make the swap in the next draw() call
-        // so that there is time to see the swap
-        needToSwap = true;
-        return;
-    }
+    // single selection
+    if (indexEntries.length == 1) {
+        int index = stateData.getInt(stateIndex, numBars);
+        int swappedWith = stateData.getInt(stateIndex, numBars + 1);
+        bars[index].fill = selectedFill;
+        
+        if (needToSwap) {
+            bars[index].drawArrowTo(bars[swappedWith]);
+            bars[index].fill = swappedWithFill;
+            bars[swappedWith].fill = selectedFill;
+            needToSwap = false;
+        } else if (swappedWith != -1) {
+            // make the swap in the next draw() call
+            // so that there is time to see the swap
+            needToSwap = true;
+            return;
+        }
 
+    // multiple selection
+    } else {
+        for (int i = 0; i < indexEntries.length; i++) {
+            int index = int(indexEntries[i]);
+            bars[index].fill = multipleSelectedFill;
+        }
+    }
+    
     // only update the values once swapped
     for (int i = 0; i < numBars; i++)
         bars[i].setValue(stateData.getInt(stateIndex, i));
-
+    
     stateIndex++;
 }
 
@@ -108,6 +120,7 @@ void draw() {
         for (Bar bar : bars)
             bar.drawBar();
 
+        // if delay is 0, then need to save as gif
         if (delay == 0)
             saveFrame();
 
@@ -116,10 +129,8 @@ void draw() {
         background(#FFFFFF);
         delay(delay);
 
-        for (Bar bar : bars) {
-            bar.fill = sortedFill;
-            bar.drawBar();
-        }
+        for (Bar bar : bars)
+            bar.drawBar(sortedFill);
 
         sorted = true;
 
