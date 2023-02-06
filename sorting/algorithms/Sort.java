@@ -1,9 +1,10 @@
 package algorithms;
+
 import java.io.*;
 
 public class Sort {
     private static Integer[] defaultValues = { 5, 2, 7, 4, 8, 1, 3, 6 };
-    
+
     public static void main(String[] args) throws IOException {
         Integer[] values = defaultValues;
 
@@ -13,7 +14,7 @@ public class Sort {
                 values[i] = Integer.parseInt(args[i]);
         }
 
-        SortingAlgorithm sorter = new BogoSort();
+        SortingAlgorithm sorter = new HeapSort();
         sorter.writeToCsv(values);
     }
 }
