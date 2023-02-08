@@ -4,19 +4,17 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 public class PancakeSort extends SortingAlgorithm {
-    private <T> void flip(T[] values, int startIndex,
-            int endIndex, ArrayList<State<T>> states) {
+    private <T extends Comparable<T>> void flip(T[] values,
+            int startIndex, int endIndex, ArrayList<State<T>> states) {
 
         // show the flip
-        if (states != null)
-            states.add(new State<T>(values.clone(), startIndex, endIndex));
-            
+        this.addState(states, new State<T>(values.clone(), startIndex, endIndex));
+
         for (int i = 0; i <= (endIndex - startIndex) / 2; i++) {
             this.swap(values, startIndex + i, endIndex - i);
         }
-        
-        if (states != null)
-            states.add(new State<T>(values.clone(), startIndex));
+
+        this.addState(states, new State<T>(values.clone(), startIndex));
     }
 
     public <T extends Comparable<T>> void sort(T[] values) {
@@ -48,14 +46,12 @@ public class PancakeSort extends SortingAlgorithm {
                 }
             }
 
-            int[] selected = IntStream.rangeClosed(0, maxIndex)
-                .toArray();
-            states.add(new State<T>(values.clone(), selected));
+            this.addState(states, new State<T>(values.clone(),
+                    IntStream.rangeClosed(0, maxIndex).toArray()));
             this.flip(values, 0, maxIndex, states);
-            
-            selected = IntStream.rangeClosed(0, i)
-                .toArray();
-            states.add(new State<T>(values.clone(), selected));
+
+            this.addState(states, new State<T>(values.clone(),
+                    IntStream.rangeClosed(0, i).toArray()));
             this.flip(values, 0, i, states);
         }
 

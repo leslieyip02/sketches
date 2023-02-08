@@ -1,16 +1,28 @@
+/**
+ * A part of the bar graph visualisation.
+ */
 class Bar {
     int value;
     int maxValue;
-    
+
     float x;
     float y;
     float w;
     float h;
-    
+
     int maxBarHeight;
 
     int fill = #ffffff;
 
+    /**
+     * @param value        - value of this index
+     * @param maxValue     - needed to calculate relative bar height
+     * @param x            - x on screen
+     * @param y            - y on screen
+     * @param w            - width
+     * @param h            - height
+     * @param maxBarHeight - needed to calculate relative bar height
+     */
     Bar(int value, int maxValue, float x, float y, 
         float w, float h, int maxBarHeight) {
 
@@ -50,7 +62,7 @@ class Bar {
 
     void drawBar() {
         stroke(#000000);
-        
+
         fill(#000000);
         textSize(32);
         textAlign(CENTER);

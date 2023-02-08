@@ -10,8 +10,9 @@ public class Sort {
 
         if (args.length > 0) {
             values = new Integer[args.length];
-            for (int i = 0; i < args.length; i++)
+            for (int i = 0; i < args.length; i++) {
                 values[i] = Integer.parseInt(args[i]);
+            }
         }
 
         SortingAlgorithm sorter = new PancakeSort();

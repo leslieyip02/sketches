@@ -39,27 +39,29 @@ void setup() {
 
     stateData = loadTable(path, "csv");
     System.out.println(String.format("Loaded table with %d rows and %d columns.", 
-        stateData.getRowCount(), stateData.getColumnCount()));
+            stateData.getRowCount(), stateData.getColumnCount()));
 
     numStates = stateData.getRowCount();
     numBars = stateData.getColumnCount() - 2;
     bars = new Bar[numBars];
 
     int maxValue = stateData.getInt(0, 0);
-    for (int i = 1; i < numBars; i++)
-        if (stateData.getInt(0, i) > maxValue)
+    for (int i = 1; i < numBars; i++) {
+        if (stateData.getInt(0, i) > maxValue) {
             maxValue = stateData.getInt(0, i);
+        }
+    }
 
     float x0 = (width - graphWidth) / 2;
     float y0 = (height - maxBarHeight) / 3 + maxBarHeight;
     float barWidth = graphWidth / numBars;
     float heightRatio = maxBarHeight / maxValue;
-    
+
     for (int i = 0; i < numBars; i++) {
         int value = stateData.getInt(0, i);
         float height = value * heightRatio;
-        bars[i] = new Bar(value, maxValue, 
-            x0 + i * barWidth, y0, barWidth, height, maxBarHeight);
+        bars[i] = new Bar(value, maxValue, x0 + i * barWidth, 
+                y0, barWidth, height, maxBarHeight);
     }
 
     stateIndex = 0;
@@ -68,22 +70,24 @@ void setup() {
 }
 
 void keyPressed() {
-    if (key == ENTER)
+    if (key == ENTER) {
         exit();
+    }
 }
 
 void update() {
-    for (Bar bar : bars)
+    for (Bar bar : bars) {
         bar.fill = defaultFill;
+    }
 
     String[] indexEntries = split(stateData.getString(stateIndex, numBars), ",");
-    
+
     // single selection
     if (indexEntries.length == 1) {
         int index = stateData.getInt(stateIndex, numBars);
         int swappedWith = stateData.getInt(stateIndex, numBars + 1);
         bars[index].fill = selectedFill;
-        
+
         if (needToSwap) {
             bars[index].drawArrowTo(bars[swappedWith]);
             bars[index].fill = swappedWithFill;
@@ -103,11 +107,12 @@ void update() {
             bars[index].fill = multipleSelectedFill;
         }
     }
-    
+
     // only update the values once swapped
-    for (int i = 0; i < numBars; i++)
+    for (int i = 0; i < numBars; i++) {
         bars[i].setValue(stateData.getInt(stateIndex, i));
-    
+    }
+
     stateIndex++;
 }
 
@@ -116,21 +121,24 @@ void draw() {
         background(#FFFFFF);
         update();
         delay(delay);
-        
-        for (Bar bar : bars)
+
+        for (Bar bar : bars) {
             bar.drawBar();
+        }
 
         // if delay is 0, then need to save as gif
-        if (delay == 0)
+        if (delay == 0) {
             saveFrame();
+        }
 
     } else if (!sorted) {
         // final state of the sketch is the sorted bar graph
         background(#FFFFFF);
         delay(delay);
 
-        for (Bar bar : bars)
+        for (Bar bar : bars) {
             bar.drawBar(sortedFill);
+        }
 
         sorted = true;
 
