@@ -14,7 +14,7 @@ public class Sort {
                 values[i] = Integer.parseInt(args[i]);
         }
 
-        SortingAlgorithm sorter = new HeapSort();
+        SortingAlgorithm sorter = new PancakeSort();
         sorter.writeToCsv(values);
     }
 }
