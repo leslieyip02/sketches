@@ -15,7 +15,7 @@ public class Sort {
             }
         }
 
-        SortingAlgorithm sorter = new PancakeSort();
+        SortingAlgorithm sorter = new SimpleSort();
         sorter.writeToCsv(values);
     }
 }
